@@ -1,0 +1,46 @@
+﻿@page "/todolist"
+
+<div class="alert alert-dark" role="alert" >
+    <h3 class = "text-cemter" >To do Application</h3>
+</div>
+
+<div class="d-grid gap-2">
+    <input type="text" class="form-label"  placeholder="Add new task" @bind="newtodoitems">
+    <button class="btn btn-primary" @onclick="Addnewlist">
+        Add
+    </button>
+</div>
+
+
+<ol class="list-group">
+    @foreach (string items in todolist)
+    {
+        <li class="list-group-item">
+            @items <button @onclick="() => Delete(items)">
+                <span class= "oi oi-delete"></span>
+            </button>
+        </li>
+    }
+
+
+</ol>
+
+@code {
+    List<string> todolist = new() { "go for shopping", "go to the bathroom" };
+
+    string newtodoitems = "";
+
+    void Addnewlist()
+    {
+        if (!string.IsNullOrWhiteSpace(newtodoitems))
+        {
+            todolist.Add(newtodoitems);
+            newtodoitems = "";
+        }
+    }
+
+    void Delete(String itemstodelte)
+    {
+        todolist.Remove(itemstodelte);
+    }
+}
